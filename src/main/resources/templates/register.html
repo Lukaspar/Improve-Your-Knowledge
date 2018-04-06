@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/head :: head">
+
+</head>
+<body>
+
+<nav th:replace="fragments/pageHeader :: pageHeader"></nav>
+
+
+<!-- calosc w konenerze 1140px -->
+<div class="container">
+
+    <!-- srodek -->
+    <div class="row justify-content-around">
+        <!-- rejestracja ma szerokosc 4, wiec przesuwam o 4 z lewej, i zostaje 4 na prawo -->
+        <div class="col-md-4 col-md-offset-4">
+            <h1> Stwórz nowe konto użytkownika </h1>
+
+            <form method="post" th:object="${user}">
+
+                <div class="form-group input-group has-feedback">
+
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </span>
+
+                    <input type="text" class="form-control" th:field="*{username}" placeholder="username"/>
+
+                </div>
+
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('username')}"
+                     th:errors="*{username}"></div>
+
+                <div class="alert alert-danger" role="alert" th:if="${existedUserError}"
+                     th:text="${existedUserError}"></div>
+
+                <div class="form-group input-group has-feedback">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-lock"></span>
+                    </span>
+                    <input type="password" class="form-control" th:field="*{password}" placeholder="password"/>
+                </div>
+
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('password')}"
+                     th:errors="*{password}"></div>
+
+                <div class="form-group input-group has-feedback">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-lock"></span>
+                    </span>
+                    <input type="password" class="form-control" th:field="*{confirmPassword}"
+                           placeholder="confirm password"/>
+                </div>
+
+                <div class="alert alert-danger" th:if="${wrongConfirmPassword}" th:text="${wrongConfirmPassword}"
+                     role="alert"></div>
+
+                <div class="alert alert-success" role="alert" th:if="${successRegist}" th:text="${successRegist}"></div>
+
+                <input type="submit" class="btn btn-primary btn-block" value="Register"/>
+            </form>
+
+
+        </div>
+    </div>
+
+
+    <footer th:replace="fragments/footer :: footer"></footer>
+
+</div>
+</body>
+</html>

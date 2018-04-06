@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse" th:fragment="pageHeader"> <!-- inverse zmienia na czarny kolor -->
+    <div class="container-fluid">   <!-- fluid czyli na calosc -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Employee Skill Tests Application</a>
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Rejestracja</a></li>
+            <li><a href="/registeredUsers"><span class="glyphicon glyphicon-th-list"></span> Lista użytkowników</a></li>
+        </ul>
+    </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/head :: head">
+
+</head>
+<body>
+
+<nav th:replace="fragments/pageHeader :: pageHeader"></nav>
+
+<div class="container">
+    <h1 class="listOfRegisteredUsers">Lista obecnie zarejestrowanych użytkowników w bazie danych :</h1>
+
+    <p style="font-size: 20px">ID&nbsp;username</p>
+
+    <tr th:each="userFromBase : ${RegisteredUsersFromBase}">
+        <td th:text="${userFromBase.id}"></td>
+        <td th:text="${userFromBase.username}"></td>
+        <br/>
+    </tr>
+
+
+</div>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+</div>
+
+
+</body>
+</html>
