@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/head :: head">
+
+</head>
+
+<body>
+
+<nav th:replace="fragments/pageHeader :: pageHeader"></nav>
+
+<div class="container">
+    <div class="row justify-content-around">
+        <div class="col-md-4 col-md-offset-4">
+
+            <h1>Zaloguj sie</h1>
+
+            <form th:action="@{/login}" method="POST">
+
+                <div class="form-group input-group has-feedback">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </span>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="username"/>
+
+                </div>
+
+                <div class="form-group input-group has-feedback">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-lock"></span>
+                    </span>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="password"/>
+                </div>
+
+                <div class="alert alert-danger" th:if="${param.error}" role="alert">*Nieprawidłowa nazwa użytkownika lub hasło.</div>
+
+                <input type="submit" class="btn btn-primary btn-block" value="Login"/>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+
+</body>
+</html>

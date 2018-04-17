@@ -7,16 +7,35 @@
 
 <body>
 <nav class="navbar navbar-inverse" th:fragment="pageHeader"> <!-- inverse zmienia na czarny kolor -->
-    <div class="container-fluid">   <!-- fluid czyli na calosc -->
+
+    <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">Employee Skill Tests Application</a>
         </div>
 
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Rejestracja</a></li>
+
+            <li><a th:unless="${loggedUser}" href="/login"><span class="glyphicon glyphicon-log-in"></span> Zaloguj sie</a></li>
+
+            <li><a th:unless="${loggedUser}" href="/register"><span class="glyphicon glyphicon-user"></span> Rejestracja</a></li>
+
+            <li>
+                <div class="navbar-text" th:if="${loggedUser}" th:text="${loggedUser}" style="font-size: 16px; color: white;"></div>
+            </li>
+
             <li><a href="/registeredUsers"><span class="glyphicon glyphicon-th-list"></span> Lista użytkowników</a></li>
+
+            <li>
+                <form th:if="${loggedUser}" th:action="@{/logout}" method="get">
+                    <button style="margin-right: 10px" class="btn btn-primary navbar-btn" type="Submit"><span class="glyphicon glyphicon-log-out"></span> Wyloguj sie</button>
+                </form>
+            </li>
         </ul>
+
+
     </div>
 </nav>
+
+
 </body>
 </html>

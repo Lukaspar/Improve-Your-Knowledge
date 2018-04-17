@@ -9,22 +9,32 @@
 <nav th:replace="fragments/pageHeader :: pageHeader"></nav>
 
 <div class="container">
-    <h1 class="listOfRegisteredUsers">Lista obecnie zarejestrowanych użytkowników w bazie danych :</h1>
 
-    <p style="font-size: 20px">ID&nbsp;username</p>
+        <h1 class="listOfRegisteredUsers">Lista zarejestrowanych użytkowników w bazie danych :</h1>
 
-    <tr th:each="userFromBase : ${RegisteredUsersFromBase}">
-        <td th:text="${userFromBase.id}"></td>
-        <td th:text="${userFromBase.username}"></td>
-        <br/>
-    </tr>
+        <table>
+            <tr class="tableHeader">
+                <td>ID </td>
+                <td>Nazwa użytkownika</td>
+                <td>Data rejestracji</td>
+                <td>Aktywność</td>
+                <td>Prawo dostępu</td>
+            </tr>
 
+            <tr th:each="userFromBase : ${RegisteredUsersFromBase}">
+                <td th:text="${userFromBase.id}"></td>
+                <td th:text="${userFromBase.username}"></td>
+                <td th:text="${userFromBase.dateOfRegistration}"></td>
+                <td th:text="${userFromBase.active}"></td>
+                <td th:text="${userFromBase.roles}"></td>
+                <br/>
+            </tr>
+        </table>
 
 </div>
 
 <footer th:replace="fragments/footer :: footer"></footer>
 </div>
-
 
 </body>
 </html>

@@ -4,13 +4,16 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_id")
     private Long id;
 
     @NotEmpty(message = "*Username can't be empty!")
@@ -21,9 +24,18 @@ public class User {
     @Length(min = 5, message = "*Your password must have at least 5 characters.")
     private String password;
 
-    @Transient // nie potrzebuje tego w bazie danych.
+    @Transient // nie zapisuje do bazy
     private String confirmPassword;
 
+    @Column(name = "active")
+    private Integer active;
+
+    @Column(name = "date_of_registration")
+    private LocalDate dateOfRegistration;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     public Long getId() {
         return id;
@@ -57,6 +69,30 @@ public class User {
         this.confirmPassword = confirmPassword;
     }
 
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public LocalDate getDateOfRegistration() {
+        return dateOfRegistration;
+    }
+
+    public void setDateOfRegistration(LocalDate dateOfRegistration) {
+        this.dateOfRegistration = dateOfRegistration;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -64,6 +100,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", confirmPassword='" + confirmPassword + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }
