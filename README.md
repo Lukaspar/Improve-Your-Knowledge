@@ -1,4 +1,4 @@
-# Employee-Skill-Tests-Application v0.2
+# Improve-Your-Java-Knowledge v0.2
 
 ## Wykorzystywane technologie:
 - Spring Boot
