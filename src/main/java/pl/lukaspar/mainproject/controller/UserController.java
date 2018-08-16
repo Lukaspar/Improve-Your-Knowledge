@@ -30,12 +30,12 @@ public class UserController {
 
         User existsUser = userService.findByUsername(newUser.getUsername());
         if (existsUser != null) {
-            model.addAttribute("existedUserError", "*Ups, Username already exist.");
+            model.addAttribute("existedUserError", "*Ups, Użytkownik o takiej nazwie już istnieje.");
             return "/register";
         }
 
         if (!newUser.getPassword().equals(newUser.getConfirmPassword())) {
-            model.addAttribute("wrongConfirmPassword", "*Ups, confirm password doesn't match!");
+            model.addAttribute("wrongConfirmPassword", "*Ups, hasła w obu polach nie są identyczne.");
             return "/register";
         }
 
@@ -43,7 +43,7 @@ public class UserController {
             return "/register";
         } else {
             userService.save(newUser);
-            model.addAttribute("successRegist", "*Success! User has been registered successfully.");
+            model.addAttribute("successRegist", "*Rejestracja przebiegła pomyślnie. Zaloguj się.");
         }
 
         return "register";
@@ -62,4 +62,12 @@ public class UserController {
     public String login(){
         return "login";
     }
+
+
+    @GetMapping("/userProfile")
+    public String userProfile(Model model){
+        userService.showLoggedUser(model);
+        return "userProfile";
+    }
+
 }

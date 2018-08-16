@@ -16,7 +16,7 @@
     <div class="row justify-content-around">
         <!-- rejestracja ma szerokosc 4, wiec przesuwam o 4 z lewej, i zostaje 4 na prawo -->
         <div class="col-md-4 col-md-offset-4">
-            <h1> Stwórz nowe konto użytkownika </h1>
+            <h1 style="text-align: center">Rejestracja</h1>
 
             <form method="post" th:object="${user}">
 
@@ -57,9 +57,11 @@
                 <div class="alert alert-danger" th:if="${wrongConfirmPassword}" th:text="${wrongConfirmPassword}"
                      role="alert"></div>
 
-                <div class="alert alert-success" role="alert" th:if="${successRegist}" th:text="${successRegist}"></div>
+                <a href="/login"><div class="alert alert-success" role="alert" th:if="${successRegist}" th:text="${successRegist}"></div></a>
 
                 <input type="submit" class="btn btn-primary btn-block" value="Register"/>
+
+                <a href="/login">Masz konto? Zaloguj się.</a>
             </form>
 
 

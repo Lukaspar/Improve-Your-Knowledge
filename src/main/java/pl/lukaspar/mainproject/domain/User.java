@@ -33,6 +33,9 @@ public class User {
     @Column(name = "date_of_registration")
     private LocalDate dateOfRegistration;
 
+    @Column(name = "score")
+    private Integer score;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
@@ -102,5 +105,13 @@ public class User {
                 ", confirmPassword='" + confirmPassword + '\'' +
                 ", roles=" + roles +
                 '}';
+    }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }

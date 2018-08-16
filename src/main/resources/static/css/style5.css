@@ -1,0 +1,43 @@
+body{
+    background-color: #e3e2f2;
+}
+
+.listOfRegisteredUsers{
+    font-size: 25px;
+    text-align: center;
+}
+
+.tableHeader{
+    font-weight: bold;
+    background-color: #C0C0C0;
+}
+
+table {
+    border-collapse: collapse;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td {
+    border: 2px solid #000000;
+    padding: 5px;
+}
+
+.text-main-page{
+    font-size: 20px;
+    text-align: center;
+}
+
+.contact{
+    margin-top: 40px;
+    font-size: 23px;
+    text-align: center;
+}
+
+/*.square-main-page{*/
+    /*font-size: 18px;*/
+    /*text-align: center;*/
+    /*border: 1px solid black;*/
+    /*padding: 15px;*/
+/*}*/

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/head :: head">
+
+</head>
+
+<body>
+<nav th:replace="fragments/pageHeader :: pageHeader"></nav>
+
+
+<div class="container">
+
+    <h1 class="listOfRegisteredUsers">Top 10 użytkowników :</h1>
+    <br >
+
+    <table>
+        <tr class="tableHeader">
+            <td>LP </td>
+            <td>Nazwa użytkownika</td>
+            <td>Liczba punktów</td>
+        </tr>
+
+        <tr th:each="userFromBase, iterator : ${RegisteredUsersFromBase}">
+            <td th:text="${iterator.index+1}"></td>
+            <td th:text="${userFromBase.username}"></td>
+            <td th:text="${userFromBase.score}"></td>
+
+        </tr>
+    </table>
+
+</div>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

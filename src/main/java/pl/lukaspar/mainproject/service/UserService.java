@@ -39,6 +39,7 @@ public class UserService {
         Role userRole = roleRepository.findByRole("USER");
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         user.setActive(1);
+        user.setScore(0);
         user.setDateOfRegistration(LocalDate.now());
         userRepository.save(user);
     }
