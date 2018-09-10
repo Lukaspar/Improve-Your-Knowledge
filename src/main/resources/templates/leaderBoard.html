@@ -11,22 +11,33 @@
 
 <div class="container">
 
-    <h1 class="listOfRegisteredUsers">Top 10 użytkowników :</h1>
-    <br >
+    <h1 class="head-label">Top 10 użytkowników :</h1>
 
-    <table>
-        <tr class="tableHeader">
-            <td>LP </td>
-            <td>Nazwa użytkownika</td>
-            <td>Liczba punktów</td>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>LP</th>
+            <th>Nazwa użytkownika</th>
+            <th>Liczba punktów</th>
         </tr>
+        </thead>
 
-        <tr th:each="userFromBase, iterator : ${RegisteredUsersFromBase}">
-            <td th:text="${iterator.index+1}"></td>
-            <td th:text="${userFromBase.username}"></td>
-            <td th:text="${userFromBase.score}"></td>
+        <tbody>
+        <div th:each="userFromBase, iterator : ${RegisteredUsersFromBase}">
+            <tr th:if="${iterator.index < 3} " class="success">
+                <td th:text="${iterator.index+1}"></td>
+                <td th:text="${userFromBase.username}"></td>
+                <td th:text="${userFromBase.score}"></td>
+            </tr>
 
-        </tr>
+            <tr th:if="${iterator.index >= 3} ">
+                <td th:text="${iterator.index+1}"></td>
+                <td th:text="${userFromBase.username}"></td>
+                <td th:text="${userFromBase.score}"></td>
+            </tr>
+        </div>
+        </tbody>
     </table>
 
 </div>

@@ -1,4 +1,4 @@
-# Improve-Your-Java-Knowledge v0.2
+# Improve-Your-Java-Knowledge v1.0
 
 ## Wykorzystywane technologie:
 - Spring Boot
@@ -21,6 +21,8 @@
 - [x] Utworzenie bazy danych MySQL oraz 3 tabel ( user, role, user_role ), a następnie podłączenie aplikacji do bazy. Nowi użytkownicy zapisywani są do zewnętrznej bazy danych wraz z informacją o dacie rejestracji oraz aktywności. 
 - [x] Poprawki na rzecz czystości kodu - zmianna nazw kilkunastu zmiennych na bardziej odpowiednie oraz wyodrębnienie powtarzającego się kodu to oddzielnych metod. Dodatkowo staram się tworzyć oraz modyfikować kod według zasad SOLID, KISS oraz DRY.
 - [x] Wypisywanie listy zarejestrowanych użytkowników umieściłem w czytelnej tabeli, oraz dodałem informację o dacie rejestracji ( LocalDate ), aktywności oraz roli użytkownika.
+
+### v1.0 ( 10.09.2018 - wersja 1.0 w pełni działającej aplikacji )
 
 <details>
 <summary>Kliknij aby zobaczyć kod SQL</summary>

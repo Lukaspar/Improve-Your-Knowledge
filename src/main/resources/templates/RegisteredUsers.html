@@ -10,26 +10,31 @@
 
 <div class="container">
 
-        <h1 class="listOfRegisteredUsers">Lista zarejestrowanych użytkowników w bazie danych :</h1>
-        <br >
+    <h1 class="head-label">Lista zarejestrowanych użytkowników w bazie danych :</h1>
 
-        <table>
-            <tr class="tableHeader">
-                <td>ID </td>
-                <td>Nazwa użytkownika</td>
-                <td>Data rejestracji</td>
-                <td>Aktywność</td>
-                <td>Prawo dostępu</td>
-            </tr>
 
-            <tr th:each="userFromBase : ${RegisteredUsersFromBase}">
-                <td th:text="${userFromBase.id}"></td>
-                <td th:text="${userFromBase.username}"></td>
-                <td th:text="${userFromBase.dateOfRegistration}"></td>
-                <td th:text="${userFromBase.active}"></td>
-                <td th:text="${userFromBase.roles}"></td>
-            </tr>
-        </table>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nazwa użytkownika</th>
+            <th>Data rejestracji</th>
+            <th>Aktywność</th>
+            <th>Prawo dostępu</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="userFromBase : ${RegisteredUsersFromBase}">
+            <td th:text="${userFromBase.id}"></td>
+            <td th:text="${userFromBase.username}"></td>
+            <td th:text="${userFromBase.dateOfRegistration}"></td>
+            <td th:text="${userFromBase.active}"></td>
+            <td th:text="${userFromBase.roles}"></td>
+        </tr>
+        </tbody>
+
+    </table>
 
 </div>
 

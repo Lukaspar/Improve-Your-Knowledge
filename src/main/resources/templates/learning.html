@@ -8,9 +8,50 @@
 <body>
 <nav th:replace="fragments/pageHeader :: pageHeader"></nav>
 
+<div class="container">
+
+    <h1 class="head-label"> Wybierz kategorię testów: </h1>
+
+    <div class="row justify-content-around">
+
+        <div class="col-md-4">
+
+            <a href="/javaQuiz">
+                <div class="containers-of-category" style="background: url('../img/javaImg.png') no-repeat;">
+                    <div class="small-container-down">
+                        <h2 class="label-on-containers">Java</h2>
+                    </div>
+                </div>
+
+            </a>
+        </div>
 
 
+        <div class="col-md-4">
 
+            <a href="/javaQuiz">
+                <div class="containers-of-category">
+                    <h2>Java</h2>
+                </div>
+
+            </a>
+        </div>
+
+
+        <div class="col-md-4">
+            <a href="/javaQuiz">
+                <div class="containers-of-category">
+                    <h2>Java</h2>
+                </div>
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+</div>
 
 
 <footer th:replace="fragments/footer :: footer"></footer>

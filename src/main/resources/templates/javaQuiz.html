@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="fragments/head :: head">
+
+</head>
+
+<body>
+<nav th:replace="fragments/pageHeader :: pageHeader"></nav>
+
+<div class="container">
+
+    <h1 class="head-label">Wybierz który test chcesz wykonać: </h1>
+
+
+    <div class="row justify-content-around">
+
+        <div class="col-md-8 col-md-offset-1">
+            <a href="/javaBasic1">
+                <div class="small-prof-container">
+                    <h3 class="label-on-small-container" style="font-size: 26px">Java Basic I</h3>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-2">
+            <div class="small-prof-container">
+                <h3 class="label-on-small-container">Postęp:
+                    <strong><span th:text="${javaBasic1Score}"></span></strong>
+                    %
+                </h3>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

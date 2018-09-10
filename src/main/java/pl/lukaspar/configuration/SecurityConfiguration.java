@@ -1,4 +1,4 @@
-package pl.lukaspar.mainproject.configuration;
+package pl.lukaspar.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

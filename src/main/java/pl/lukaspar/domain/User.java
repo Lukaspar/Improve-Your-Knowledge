@@ -1,10 +1,12 @@
-package pl.lukaspar.mainproject.domain;
+package pl.lukaspar.domain;
 
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -39,6 +41,11 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+
+    public void addScore(int toAdd){
+        this.score += toAdd;
+    }
 
     public Long getId() {
         return id;
@@ -103,6 +110,9 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", confirmPassword='" + confirmPassword + '\'' +
+                ", active=" + active +
+                ", dateOfRegistration=" + dateOfRegistration +
+                ", score=" + score +
                 ", roles=" + roles +
                 '}';
     }

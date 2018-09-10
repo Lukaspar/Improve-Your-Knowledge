@@ -1,4 +1,4 @@
-package pl.lukaspar.mainproject.domain;
+package pl.lukaspar.domain;
 
 import javax.persistence.*;
 

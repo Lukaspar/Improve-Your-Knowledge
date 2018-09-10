@@ -1,0 +1,50 @@
+Czy klasa może dziedziczyć po wielu klasach?
+Tak
+Java nie korzysta z dziedziczenia
+Klasa może dziedziczyć po wielu klasach ale implementować tylko jeden interfejs
+Nie
+Programy napisane w javie działają na .... ?
+Windows
+Mac
+Unix / Linux
+Wszystkie z powyższych
+pytanie 3
+tak
+ehem
+test
+noo
+pytanie 4
+tak
+ehem
+test
+noo
+pytanie 5
+tak
+ehem
+test
+noo
+pytanie 6
+tak
+ehem
+test
+noo
+pytanie 7
+tak
+ehem
+test
+noo
+pytanie 8
+tak
+ehem
+test
+noo
+pytanie 9
+tak
+ehem
+test
+noo
+pytanie 10
+tak
+ehem
+test
+noo

@@ -8,10 +8,78 @@
 <body>
 <nav th:replace="fragments/pageHeader :: pageHeader"></nav>
 
+<div class="container">
 
+    <h1 class="head-label">Profil użytkownika :</h1>
 
+    <h3>Nazwa użytkownika: <strong><span th:text="${username}"></span></strong></h3>
+    <h3>Liczba punktów: <strong><span th:text="${score}"></span></strong></h3>
+    <h3>Data rejestracji: <strong><span th:text="${dateOfRegister}"></span></strong></h3>
+    <h3>Miejsce w rankingu: <strong><span th:text="${userPosition}"></span></strong></h3>
 
+    <h3>Kilka dostępnych testów:</h3><br>
 
+    <div class="row justify-content-around">
+
+        <div class="col-md-2">
+            <a href="/javaBasic1">
+                <div class="small-prof-container"><h5 class="label-on-small-container">Java basic I</h5></div>
+            </a>
+        </div>
+
+        <div class="col-md-2">
+            <a href="/javaBasic1">
+                <div class="small-prof-container"><h5 class="label-on-small-container">Java basic II</h5></div>
+            </a>
+        </div>
+
+        <div class="col-md-2">
+            <a href="/javaBasic1">
+                <div class="small-prof-container"><h5 class="label-on-small-container">Java basic III</h5></div>
+            </a>
+        </div>
+
+        <div class="col-md-2">
+            <a href="/javaBasic1">
+                <div class="small-prof-container"><h5 class="label-on-small-container">Spring basic I</h5></div>
+            </a>
+        </div>
+
+        <div class="col-md-2">
+            <a href="/javaBasic1">
+                <div class="small-prof-container"><h5 class="label-on-small-container">Spring basic II</h5></div>
+            </a>
+        </div>
+
+        <div class="col-md-2">
+            <a href="/javaBasic1">
+                <div class="small-prof-container"><h5 class="label-on-small-container">J. Ang basic I</h5></div>
+            </a>
+        </div>
+
+    </div>
+
+    <h3 style="margin-top: 40px; font-size: 20px">Aby usunąć konto wpisz poprawnie hasło a następnie zatwierdź
+        przyciskiem:</h3>
+
+    <form method="post" class="form-inline">
+        <div class="input-group">
+            <input class="form-control" type="password" placeholder="password" th:name="password"/>
+
+            <span class="input-group-btn">
+                <input type="submit" class="btn btn-danger " value="Usuń konto"/>
+            </span>
+        </div>
+    </form>
+
+    <a href="/">
+        <div class="alert alert-success" role="alert" th:if="${succesDelete}" th:text="${succesDelete}"></div>
+    </a>
+
+    <div class="alert alert-danger" th:if="${wrongPassword}" th:text="${wrongPassword}"
+         role="alert"></div>
+
+</div>
 
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
