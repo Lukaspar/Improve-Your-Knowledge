@@ -9,9 +9,9 @@ Mac
 Unix / Linux
 Wszystkie z powyższych
 pytanie 3
-tak
-ehem
-test
+Tak
+Nie
+fwsef
 noo
 pytanie 4
 tak

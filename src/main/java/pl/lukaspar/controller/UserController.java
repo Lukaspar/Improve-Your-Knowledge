@@ -1,6 +1,7 @@
 package pl.lukaspar.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,83 +12,112 @@ import pl.lukaspar.domain.User;
 import pl.lukaspar.service.UserService;
 
 import javax.validation.Valid;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Controller
 public class UserController {
 
+    private final UserService userService;
+
+    // Constructor Injection
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/register")
-    public String getRegist(Model model) {
-
-        User newUser = new User();
-        model.addAttribute("user", newUser);
+    public String registration(Model model) {
+        model.addAttribute("user", new User());
         return "register";
     }
 
     @PostMapping("/register")
-    public String postRegist(@Valid User newUser, BindingResult bindingResult, Model model) {
+    public String registration(@Valid User newUser, BindingResult bindingResult, Model model) {
 
-        User existsUser = userService.findByUsername(newUser.getUsername());
-        if (existsUser != null) {
+        // Sprawdzam czy użytkownik o danej nazwie juz istnieje
+        if ((userService.findByUsername(newUser.getUsername()) != null)) {
             model.addAttribute("existedUserError", "*Ups, Użytkownik o takiej nazwie już istnieje.");
-            return "/register";
+            return "register";
         }
 
+        // Sprawdzam czy hasła są identyczne
         if (!newUser.getPassword().equals(newUser.getConfirmPassword())) {
             model.addAttribute("wrongConfirmPassword", "*Ups, hasła w obu polach nie są identyczne.");
-            return "/register";
+            return "register";
         }
 
+        // Sprawdzam czy wystapiły błędy zdefinowanie w encji User
         if (bindingResult.hasErrors()) {
-            return "/register";
+            return "register";
         } else {
             userService.save(newUser);
-            model.addAttribute("successRegist", "*Rejestracja przebiegła pomyślnie. Zaloguj się.");
+            model.addAttribute("successRegistration", "*Rejestracja przebiegła pomyślnie. Zaloguj się.");
+
+            return "register";
         }
-
-        return "register";
     }
-
-    @GetMapping("/registeredUsers")
-    public String registeredUsers(Model model) {
-
-        userService.showLoggedUser(model);
-        model.addAttribute("RegisteredUsersFromBase", userService.findAll());
-        return "registeredUsers";
-    }
-
 
     @GetMapping("/login")
     public String login() {
+        /*
+            Proces logowania obsługiwany jest przez Spring Security, ten kontroler
+            jedynie wyświetla stronę z logowaniem.
+        */
         return "login";
     }
 
-
     @GetMapping("/userProfile")
-    public String userProfile(Model model) throws IOException {
-        userService.showLoggedUser(model);
-        userService.showDataAboutUser(model);
+    public String userProfile(Model model) {
+        User currentUser = userService.getCurrentUser();
+
+        model.addAttribute("username", currentUser.getUsername());
+        model.addAttribute("dateOfRegister", currentUser.getDateOfRegistration());
+        model.addAttribute("score", currentUser.getScore());
+        model.addAttribute("userPosition", userService.getUserPosition(currentUser));
 
         return "userProfile";
     }
 
     @PostMapping("/userProfile")
-    public String userProfile(@RequestParam("password") String password, Model model) throws IOException {
-        if(userService.deleteByUsername(password, model)){
-            model.addAttribute("succesDelete", "*Pomyślnie usunięto konto użytkownika. Kliknij aby przejść na stronę główną.");
+    public String userProfile(@RequestParam("password") String password, Model model) {
+
+        boolean isDeletedUser = userService.deleteByUsername(password);
+
+        if (isDeletedUser) {
+            model.addAttribute("successDelete", "*Pomyślnie usunięto konto użytkownika. Kliknij aby przejść na stronę główną.");
+            SecurityContextHolder.clearContext(); // Po usunięciu użytkownika czyszczę sesje.
+            return "userProfile";
         } else {
-            userService.showLoggedUser(model);
-            userService.showDataAboutUser(model);
             model.addAttribute("wrongPassword", "*Nie udało się usunąć konta. Hasło nieprawidłowe.");
+            return userProfile(model);
+        }
+    }
+
+    @GetMapping("/registeredUsers")
+    public String registeredUsers(Model model) {
+
+        model.addAttribute("RegisteredUsersFromBase", userService.findAll());
+        return "registeredUsers";
+    }
+
+    @GetMapping("/scoreboard")
+    public String usersScoreboard(Model model) {
+
+        List<User> listOfUsers = userService.findAll();
+
+        /*
+            Sortuję użytkowników według liczby punktów oraz ucinam tylko do
+            pierwszych 10.
+         */
+        listOfUsers.sort((o1, o2) -> o2.getScore().compareTo(o1.getScore()));
+
+        if (listOfUsers.size() > 10) {
+            listOfUsers = listOfUsers.subList(0, 10);
         }
 
-        return "userProfile";
+        model.addAttribute("RegisteredUsersFromBase", listOfUsers);
+
+        return "scoreboard";
     }
 
 }

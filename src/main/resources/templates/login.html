@@ -32,6 +32,7 @@
                     <input type="password" class="form-control" name="password" id="password" placeholder="password"/>
                 </div>
 
+                <!-- param.error zostanie odebrany ze Spring Security jesli logowanie sie nie powiedzie. -->
                 <div class="alert alert-danger" th:if="${param.error}" role="alert">*Nieprawidłowa nazwa użytkownika lub hasło.</div>
 
                 <input type="submit" class="btn btn-primary btn-block" value="Login"/>

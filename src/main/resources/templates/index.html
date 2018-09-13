@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="eng" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="eng" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head th:replace="fragments/head :: head">
 
@@ -26,12 +26,12 @@
 
 
             <div class="row text-center" style="margin-top: 30px;">
-                <div class="col-sm-4" th:unless="${loggedUser}"><a href="/login" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-log-in"></span> Logowanie</a>
+                <div class="col-sm-4" sec:authorize="!isAuthenticated()"><a href="/login" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-log-in"></span> Logowanie</a>
                 </div>
-                <div class="col-sm-4" th:unless="${loggedUser}"><a href="/register" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-user"></span> Rejestracja</a></div>
+                <div class="col-sm-4" sec:authorize="!isAuthenticated()"><a href="/register" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-user"></span> Rejestracja</a></div>
 
-                <div class="col-sm-4" th:if="${loggedUser}"><a href="/learning" class="btn btn-success btn-lg" role="button"><span class="glyphicon glyphicon-book"></span> Nauka</a></div>
-                <div class="col-sm-4" th:if="${loggedUser}"><a href="/userProfile" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-user"></span> Profil</a></div>
+                <div class="col-sm-4" sec:authorize="isAuthenticated()"><a href="/learning" class="btn btn-success btn-lg" role="button"><span class="glyphicon glyphicon-book"></span> Nauka</a></div>
+                <div class="col-sm-4" sec:authorize="isAuthenticated()"><a href="/userProfile" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-user"></span> Profil</a></div>
                 <div class="col-sm-4"><a href="/contact" class="btn btn-primary btn-lg" role="button"><span class="glyphicon glyphicon-envelope"></span> Kontakt</a></div>
 
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="eng" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="eng" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <title></title>
@@ -16,15 +16,15 @@
         <ul class="nav navbar-nav navbar-right">
 
             <li>
-                <a href="/userProfile"> <div th:if="${loggedUser}" th:text="${loggedUser}" style="font-size: 16px; color: white;"></div></a>
+                <a href="/userProfile"> <div sec:authorize="isAuthenticated()" style="font-size: 16px; color: white;">Zalogowany jako: <span sec:authentication="name"></span></div></a>
             </li>
 
             <li><a href="/registeredUsers"><span class="glyphicon glyphicon-th-list"></span> Lista użytkowników</a></li>
 
-            <li><a href="/leaderBoard"><span class="glyphicon glyphicon-stats"></span> Ranking</a></li>
+            <li><a href="/scoreboard"><span class="glyphicon glyphicon-stats"></span> Ranking</a></li>
 
             <li>
-                <form th:if="${loggedUser}" th:action="@{/logout}" method="get">
+                <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="get">
                     <button style="margin-right: 10px" class="btn btn-primary navbar-btn btn-sm" type="Submit"><span class="glyphicon glyphicon-log-out"></span> Wyloguj sie</button>
                 </form>
             </li>

@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories
-public class ImproveYourJavaKnowledgeApplication {
+public class ImproveYourKnowledgeApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ImproveYourJavaKnowledgeApplication.class, args);
+        SpringApplication.run(ImproveYourKnowledgeApplication.class, args);
     }
 }
