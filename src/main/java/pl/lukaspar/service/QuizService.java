@@ -1,65 +1,65 @@
 package pl.lukaspar.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import pl.lukaspar.domain.User;
-import pl.lukaspar.repository.RoleRepository;
-import pl.lukaspar.repository.UserRepository;
 
+import javax.transaction.Transactional;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class QuizService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private UserService userService;
-
+    public QuizService(UserService userService) {
+        this.userService = userService;
+    }
 
 
-    /*
+    public int getUserQuizScore(String quizScoreFilePath) throws IOException {
+
+        /*
             Metoda zwraca obecny najlepszy wynik uzytkownika przy kazdym tescie.
             Dodatkowo jesli uzytkownik pierwszy raz odwiedza ta zakladke, dodawany jest
             do pliku txt i przyznawany jest mu wynik 0.
          */
-    public int getUserQuizScore(String quizScoreFileName) throws IOException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userName = userService.findByUsername(auth.getName()).getUsername();
 
+        String userName = userService.getCurrentUser().getUsername();
         String result;
-        boolean nameExist = true;
+        boolean isNameExist = true;
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(quizScoreFileName))) {
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(quizScoreFilePath))) {
 
             String nameFromFile = bufferedReader.readLine();
             while (!userName.equalsIgnoreCase(nameFromFile)) {
                 nameFromFile = bufferedReader.readLine();
 
                 if (nameFromFile == null) {
-                    nameExist = false;
+                    isNameExist = false;
                     break;
                 }
             }
 
+            // Jesli znalazlem pasujaca nazwe uzytkownika to czytam nastepna linie - jest to wynik uzytkownika.
             result = bufferedReader.readLine();
         }
 
-        if (!nameExist) {
+        if (!isNameExist) {
+            /*
+                Uzytkownika nie ma w pliku wiec go do niego zapisuje.
+                append: true, oznacza ze nie nadpisuje pliku a dopisuje na koncu.
+             */
 
-            try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(quizScoreFileName, true))) {
+            try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(quizScoreFilePath, true))) {
                 bufferedWriter.write(userName + "\n");
                 bufferedWriter.write("0" + "\n");
-
 
                 return 0;
             }
@@ -67,16 +67,19 @@ public class QuizService {
 
     }
 
-
     public void loadQuestion(String questionsFilePath, int numberOfQuestion, Model model) throws IOException {
 
-        // zmniejszam o 1 bo licze od 0 index
+        // zmniejszam o 1 bo index od 0
         numberOfQuestion -= 1;
 
         try (BufferedReader bf = new BufferedReader(new FileReader(questionsFilePath))) {
 
-            for(int i = 0 ; i < numberOfQuestion; ++i){
-                for(int j = 0 ; j < 5 ; ++j) bf.readLine();
+            /*
+                W zaleznosci ktore obecnie jest pytanie, przewijam plik do momentu az
+                dotre do obecnego pytania.
+             */
+            for (int i = 0; i < numberOfQuestion; ++i) {
+                for (int j = 0; j < 5; ++j) bf.readLine();
             }
 
             model.addAttribute("question", bf.readLine());
@@ -87,7 +90,6 @@ public class QuizService {
 
         }
     }
-
 
     public int checkUserAnswers(List<String> userAnswers, String quizAnswersPath) throws IOException {
         int score = 0;
@@ -109,16 +111,13 @@ public class QuizService {
             }
         }
 
-
         return score;
     }
 
-
     public boolean isBetterScore(int score, String userScoreFilePath) throws IOException {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findByUsername(auth.getName());
 
-        int currenUserScore;
+        User user = userService.getCurrentUser();
+        int currentUserScore;
 
         try (BufferedReader bf = new BufferedReader(new FileReader(userScoreFilePath))) {
 
@@ -127,13 +126,12 @@ public class QuizService {
                 oneLine = bf.readLine();
             }
 
-            currenUserScore = Integer.parseInt(bf.readLine());
-
+            currentUserScore = Integer.parseInt(bf.readLine());
         }
 
-        if (score > currenUserScore) {
+        if (score > currentUserScore) {
 
-            user.addScore(score - currenUserScore);
+            user.addScore(score - currentUserScore);
 
             List<String> allDataFromFile = new ArrayList<>();
             int indexOfOldScore = 0;
@@ -150,8 +148,6 @@ public class QuizService {
                     temp = bf.readLine();
                     x++;
                 }
-
-
             }
 
             allDataFromFile.set(indexOfOldScore, String.valueOf(score));
@@ -167,10 +163,6 @@ public class QuizService {
         } else {
             return false;
         }
-
-
     }
-
-
 
 }

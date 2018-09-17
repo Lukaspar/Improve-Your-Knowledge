@@ -15,13 +15,14 @@ import java.util.List;
 @Controller
 public class QuizController {
 
-    private static List<String> userAnswer = new ArrayList<>();
+    private static List<String> userAnswer;
 
     private final QuizService quizService;
 
     @Autowired
     public QuizController(QuizService quizService){
         this.quizService = quizService;
+        userAnswer = new ArrayList<>();
     }
 
     @GetMapping("/learning")
@@ -46,6 +47,10 @@ public class QuizController {
 
     @PostMapping("/javaBasic1")
     public String JavaBasic1(@RequestParam(required = false, name = "getUserAnswer") String answer, Model model) throws IOException {
+        /*
+             required = false - z tego powodu, że użytkownik może nie podać odpowiedzi, wtedy dostaje 0 pkt za odpowiedz.
+        */
+
         userAnswer.add(answer);
 
         if(userAnswer.size() < 10){
@@ -55,13 +60,12 @@ public class QuizController {
             if(userAnswer.size() == 9) model.addAttribute("endOfQuiz", "");
             else model.addAttribute("continueQuiz", "");
 
-
             quizService.loadQuestion("src/main/resources/txt/javaBasic/javaBasic1Questions.txt", (userAnswer.size()+1), model);
             return "/JavaBasic1";
         } else {
+
             int score = quizService.checkUserAnswers(userAnswer, "src/main/resources/txt/javaBasic/javaBasic1AnswersKey.txt");
             boolean isBetter = quizService.isBetterScore(score, "src/main/resources/txt/javaBasic/javaBasic1UserScore.txt");
-
 
             if(isBetter){
                 model.addAttribute("betterScore", "Udało Ci się osiągnąć nowy rekord! Zdobyłeś " + score + "/10 punktów!");
@@ -72,8 +76,6 @@ public class QuizController {
             userAnswer.clear();
             return "/javaBasic1";
         }
-
-
-
     }
+
 }

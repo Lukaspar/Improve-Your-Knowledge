@@ -1,7 +1,6 @@
 package pl.lukaspar.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,16 +16,15 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
-        return new BCryptPasswordEncoder();
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private final DataSource dataSource;
+
+    @Autowired
+    public SecurityConfiguration(BCryptPasswordEncoder bCryptPasswordEncoder, DataSource dataSource) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.dataSource = dataSource;
     }
-
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
-    private DataSource dataSource;
 
 
     @Override

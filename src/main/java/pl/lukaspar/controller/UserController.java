@@ -96,7 +96,7 @@ public class UserController {
     @GetMapping("/registeredUsers")
     public String registeredUsers(Model model) {
 
-        model.addAttribute("RegisteredUsersFromBase", userService.findAll());
+        model.addAttribute("registeredUsersFromBase", userService.findAll());
         return "registeredUsers";
     }
 

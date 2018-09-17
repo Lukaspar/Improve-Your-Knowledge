@@ -1,12 +1,6 @@
 lukaspar
-7
-test2
 10
+test1
+1
 lukaspar2
-0
-kolegaLukasz
-3
-ideNaRekord
-7
-lukaspar3
-5
+10

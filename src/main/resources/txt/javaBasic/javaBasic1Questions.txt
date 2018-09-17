@@ -1,50 +1,50 @@
+Jaka jest prawidłowa składnia głównej metody main?
+public static void main(String[] args)
+public void main()
+public void main(String[] args)
+public String main(String[] args)
 Czy klasa może dziedziczyć po wielu klasach?
 Tak
-Java nie korzysta z dziedziczenia
+Java nie pozwala na dziedziczenie innych klas
 Klasa może dziedziczyć po wielu klasach ale implementować tylko jeden interfejs
 Nie
-Programy napisane w javie działają na .... ?
+Czy klasa może implementować kilka interfejsów?
+Tylko wtedy jak interfejsy roszerzają jeden wspólny interfejs
+Tak
+Tak, ale nie więcej niż 3
+Nie, klasa może implementować tylko jeden interfejs.
+Jaką zmienną nazywamy field(pole)?
+Zdefiniowaną w dowolnym bloku kodu
+Zdefiniowaną w klasie
+Posiadającą metodę getNazwa i setNazwa
+Zmienna statyczną
+Programy napisane w javie działają na ... ?
 Windows
 Mac
 Unix / Linux
 Wszystkie z powyższych
-pytanie 3
-Tak
-Nie
-fwsef
-noo
-pytanie 4
-tak
-ehem
-test
-noo
-pytanie 5
-tak
-ehem
-test
-noo
-pytanie 6
-tak
-ehem
-test
-noo
-pytanie 7
-tak
-ehem
-test
-noo
-pytanie 8
-tak
-ehem
-test
-noo
-pytanie 9
-tak
-ehem
-test
-noo
-pytanie 10
-tak
-ehem
-test
-noo
+Jakiej metody nie zawiera klasa Object?
+toString
+toHashcode
+equals
+wait
+Wybierz prawidłowy typ danych dla liczby : 5.5
+int
+dobule
+char
+String
+Co zawiera stos?
+Zawiera instancje obiektów i stos wywołań
+Zawiera instancje obiektów
+Zawiera zmienne lokalne i stos wywołań
+Zawiera isntancje obiektów i zmienne lokalne
+Co to jest konstruktor domyślny?
+Konstruktor zdefiniowany ze słowem kluczowym default
+Jest tworzony jeśli nie zdefiniowano jawnie konstruktora w klasie
+Jest tworzony tylko wtedy kiedy zostanie jawnie zdefiniowany w kodzie
+Jest to konstruktor który posiada tylko jeden argument
+Jak działa słowo kluczowe continue?
+Przerywa wykonywanie pętli i kontynuuje wykonywanie dalszego kodu
+Wykonanie wraca do metody nadrzędnej
+Automatycznie przechodzi do kolejnej iteracji w pętli for
+Iteruje pętle raz jeszcze od początku

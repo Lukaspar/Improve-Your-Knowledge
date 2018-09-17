@@ -13,6 +13,8 @@ public class Role {
 
     private String role;
 
+    // Gettery & Settery
+
     public Long getId() {
         return id;
     }

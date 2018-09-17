@@ -25,7 +25,7 @@
         </thead>
 
         <tbody>
-        <tr th:each="userFromBase : ${RegisteredUsersFromBase}">
+        <tr th:each="userFromBase : ${registeredUsersFromBase}">
             <td th:text="${userFromBase.id}"></td>
             <td th:text="${userFromBase.username}"></td>
             <td th:text="${userFromBase.dateOfRegistration}"></td>

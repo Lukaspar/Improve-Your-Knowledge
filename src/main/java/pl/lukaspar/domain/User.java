@@ -16,12 +16,12 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    @NotEmpty(message = "*Username can't be empty!")
-    @Length(min = 5, message = "*Your username must have at least 5 characters.")
+    @NotEmpty(message = "*Nazwa użytkownika nie może być pusta!")
+    @Length(min = 5, message = "*Nazwa użytkownika musi posiadać minimum 5 znaków.")
     private String username;
 
-    @NotEmpty(message = "*Password can't be empty!")
-    @Length(min = 5, message = "*Your password must have at least 5 characters.")
+    @NotEmpty(message = "*Hasło nie może być puste!")
+    @Length(min = 5, message = "*Hasło musi posiadać minimum 5 znaków.")
     private String password;
 
     @Transient // nie zapisuje do bazy
@@ -41,9 +41,11 @@ public class User {
     private Set<Role> roles;
 
 
-    public void addScore(int toAdd){
-        this.score += toAdd;
+    public void addScore(int scoreToAdd) {
+        this.score += scoreToAdd;
     }
+
+    // Gettery & Settery
 
     public Long getId() {
         return id;
@@ -101,6 +103,14 @@ public class User {
         this.dateOfRegistration = dateOfRegistration;
     }
 
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -115,11 +125,4 @@ public class User {
                 '}';
     }
 
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
 }

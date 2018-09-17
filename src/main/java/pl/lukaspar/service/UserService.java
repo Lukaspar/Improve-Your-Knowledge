@@ -5,14 +5,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import pl.lukaspar.domain.Role;
 import pl.lukaspar.domain.User;
 import pl.lukaspar.repository.RoleRepository;
 import pl.lukaspar.repository.UserRepository;
 
 import javax.transaction.Transactional;
-import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -20,51 +18,63 @@ import java.util.*;
 @Transactional
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    private final RoleRepository roleRepository;
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private RoleRepository roleRepository;
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    // Metody z JpaRepository
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
     public void save(User user) {
+
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Role userRole = roleRepository.findByRole("USER");
-        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+
+        Set<Role> userRole = new HashSet<>();
+        userRole.add(roleRepository.findByRole("USER"));
+        user.setRoles(userRole);
+
         user.setActive(1);
         user.setScore(0);
         user.setDateOfRegistration(LocalDate.now());
+
         userRepository.save(user);
     }
+
+    // Własne metody
 
     public User getCurrentUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return findByUsername(auth.getName());
     }
 
-
     public int getUserPosition(User user) {
 
         List<User> listOfUsers = findAll();
-        Collections.sort(listOfUsers, new Comparator<User>() {
-            @Override
-            public int compare(User o1, User o2) {
-                return o2.getScore().compareTo(o1.getScore());
-            }
-        });
+
+        listOfUsers.sort( ((o1, o2) -> o2.getScore().compareTo(o1.getScore())) );
 
         return listOfUsers.indexOf(user) + 1;
     }
 
     public boolean deleteByUsername(String password) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = findByUsername(auth.getName());
+
+        User user = getCurrentUser();
 
         if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
             userRepository.deleteByUsername(user.getUsername());
@@ -74,22 +84,5 @@ public class UserService {
         }
 
     }
-
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
