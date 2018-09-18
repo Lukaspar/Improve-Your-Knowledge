@@ -1,3 +1,9 @@
+body {
+    background-color: #e3e2f2;
+    padding-bottom: 120px;
+}
+
+/* funky */
 .funkyradio div {
     clear: both;
     overflow: hidden;
@@ -62,21 +68,6 @@
 .funkyradio-primary input[type="radio"]:checked ~ label:before {
     color: #fff;
     background-color: #337ab7;
-}
-
-
-
-
-
-
-
-
-
-
-
-body {
-    background-color: #e3e2f2;
-    padding-bottom: 120px;
 }
 
 .head-label {
@@ -148,18 +139,6 @@ body {
     line-height: 65px;
 }
 
-/*table {*/
-/*border-collapse: collapse;*/
-/*text-align: center;*/
-/*margin-left: auto;*/
-/*margin-right: auto;*/
-/*}*/
-
-/*td {*/
-/*border: 2px solid #000000;*/
-/*padding: 5px;*/
-/*}*/
-
 .text-main-page {
     font-size: 20px;
     text-align: center;
@@ -170,10 +149,3 @@ body {
     font-size: 23px;
     text-align: center;
 }
-
-/*.square-main-page{*/
-/*font-size: 18px;*/
-/*text-align: center;*/
-/*border: 1px solid black;*/
-/*padding: 15px;*/
-/*}*/

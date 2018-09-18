@@ -59,12 +59,11 @@
 
     </div>
 
-    <h3 style="margin-top: 40px; font-size: 20px">Aby usunąć konto wpisz poprawnie hasło a następnie zatwierdź
-        przyciskiem:</h3>
+    <h3 style="margin-top: 40px; font-size: 20px">Aby usunąć konto wpisz poprawnie hasło a następnie zatwierdź przyciskiem:</h3>
 
     <form method="post" class="form-inline" >
         <div class="input-group">
-            <input class="form-control" type="password" placeholder="password" th:name="password"/>
+            <input class="form-control" type="password" th:name="password" placeholder="hasło"/>
 
             <span class="input-group-btn">
                 <input type="submit" class="btn btn-danger " value="Usuń konto"/>
@@ -77,8 +76,7 @@
         <div class="alert alert-success" role="alert" th:if="${successDelete}" th:text="${successDelete}"></div>
     </a>
 
-    <div class="alert alert-danger" th:if="${wrongPassword}" th:text="${wrongPassword}"
-         role="alert"></div>
+    <div class="alert alert-danger" th:if="${wrongPassword}" th:text="${wrongPassword}" role="alert"></div>
 
 </div>
 

@@ -1,4 +1,4 @@
-# Improve-Your-Java-Knowledge v1.0
+# Improve-Your-Knowledge v1.0
 
 ## Wykorzystywane technologie:
 - Spring Boot
