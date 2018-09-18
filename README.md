@@ -32,7 +32,7 @@
 - [x] Ranking - wyświetla 10 użytkowników posiadających największą sumę punktów ze wszystkich testów.
 - [x] Tabele w aplikacji zostały zmodernizowane przy pomocy klas bootstrapa.
 - [x] Zakładka kontakt.
-- [x] Wygląd testów został zmodernizowany przy pomocy (LINK)[https://bootsnipp.com/snippets/Zk2Pz]
+- [x] Wygląd testów został zmodernizowany przy pomocy - [LINK](https://bootsnipp.com/snippets/Zk2Pz)
 
 
 ## Składnia SQL :
