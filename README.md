@@ -35,6 +35,36 @@
 - [x] Wygląd testów został zmodernizowany przy pomocy - [LINK](https://bootsnipp.com/snippets/Zk2Pz)
 
 
+## Galeria aplikacji 
+Poniższe zdjęcia prezentują częściowo funkcjonalność aplikacji.
+<details>
+<summary>Kliknij aby wyświetlić zdjęcia</summary>
+
+### Strona główna
+![](/project-execution-images/1.png)
+### Rejestracja
+![](/project-execution-images/2.png)
+### Nieudana rejestracja
+![](/project-execution-images/3.png)
+### Pomyślna rejestracja
+![](/project-execution-images/4.png)
+### Logowanie
+![](/project-execution-images/5.png)
+### Ranking
+![](/project-execution-images/6.png)
+### Lista zarejestrowanych użytkowników
+![](/project-execution-images/7.png)
+### Profil użytkownika
+![](/project-execution-images/8.png)
+### Kategorie testów
+![](/project-execution-images/9.png)
+### Przykład testu
+![](/project-execution-images/10.png)
+### Wynik testu
+![](/project-execution-images/11.png)
+
+</details>
+
 ## Składnia SQL :
 <details>
 <summary>Kliknij aby zobaczyć kod SQL</summary>
