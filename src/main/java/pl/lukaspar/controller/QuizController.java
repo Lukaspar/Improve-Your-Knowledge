@@ -78,4 +78,13 @@ public class QuizController {
         }
     }
 
+    @GetMapping("/springQuiz")
+    public String springQuiz(){
+        return "springQuiz";
+    }
+
+    @GetMapping("/englishQuiz")
+    public String englishQuiz(){
+        return "englishQuiz";
+    }
 }
