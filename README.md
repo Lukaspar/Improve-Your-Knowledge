@@ -70,15 +70,15 @@ Poniższe zdjęcia prezentują częściowo funkcjonalność aplikacji.
 <summary>Kliknij aby zobaczyć kod SQL</summary>
   
 ~~~mysql
-CREATE DATABASE ImproveYourKnowledge
+CREATE DATABASE ImproveYourKnowledge;
 
-CREATE USER 'lukaspar'@'localhost' IDENTIFIED BY 'moje_haslo';
+CREATE USER 'lukaspar'@'localhost' IDENTIFIED BY '665650';
 
-GRANT ALL PRIVILEGES ON employeeSkillTestsDatabase.* TO 'lukaspar'@'localhost'
+GRANT ALL PRIVILEGES ON ImproveYourKnowledge.* TO 'lukaspar'@'localhost';
 
-ALTER USER 'lukaspar'@'localhost' IDENTIFIED WITH mysql_native_password BY 'moje_haslo';
+ALTER USER 'lukaspar'@'localhost' IDENTIFIED WITH mysql_native_password BY '665650';
 
-'CREATE TABLE `user` (
+CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -86,22 +86,22 @@ ALTER USER 'lukaspar'@'localhost' IDENTIFIED WITH mysql_native_password BY 'moje
   `date_of_registration` date NOT NULL,
   `score` int(11) NOT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+);
 
-'CREATE TABLE `role` (
+CREATE TABLE `role` (
   `role_id` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+);
 
-'CREATE TABLE `user_role` (
+CREATE TABLE `user_role` (
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`user_id`,`role_id`),
   KEY `role_id` (`role_id`),
   CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
   CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+);
 
 INSERT INTO role VALUES (1,'ADMIN');
 INSERT INTO role VALUES (2,'USER');
