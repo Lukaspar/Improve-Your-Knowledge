@@ -5,7 +5,7 @@
 
     <groupId>pl.lukaspar</groupId>
     <artifactId>Improve-Your-Knowledge</artifactId>
-    <version>1.1</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>Improve-Your-Knowledge</name>
@@ -56,11 +56,17 @@
             <version>3.0.9.RELEASE</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity4</artifactId>
             <version>3.0.2.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.4</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
@@ -73,6 +79,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>

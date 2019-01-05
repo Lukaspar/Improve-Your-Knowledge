@@ -8,7 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.lukaspar.domain.User;
+import pl.lukaspar.model.User;
 import pl.lukaspar.service.UserService;
 
 import javax.validation.Valid;
@@ -19,7 +19,6 @@ public class UserController {
 
     private final UserService userService;
 
-    // Constructor Injection
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
