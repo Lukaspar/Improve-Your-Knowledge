@@ -1,8 +1,2 @@
-Lukaspar3	10
-anotherone	4
-tester2	2
-Lukaspar 4
-test0	1
-test3	1
-Lukaspar5	0
-Lukaspar2	0
+lukaspar 2
+test1 1

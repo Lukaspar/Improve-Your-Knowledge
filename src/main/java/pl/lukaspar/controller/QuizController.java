@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.lukaspar.service.QuizService;
+import pl.lukaspar.util.Constants;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,28 +21,30 @@ public class QuizController {
     private final QuizService quizService;
 
     @Autowired
-    public QuizController(QuizService quizService){
+    public QuizController(QuizService quizService) {
         this.quizService = quizService;
         userAnswer = new ArrayList<>();
     }
 
     @GetMapping("/learning")
-    public String learning(){
+    public String learning() {
         return "learning";
     }
 
     @GetMapping("/javaQuiz")
     public String javaQuiz(Model model) throws IOException {
 
-        model.addAttribute("javaBasic1Score", quizService.getUserQuizScore("src/main/resources/txt/java/javaBasic1/javaBasic1UserScore.txt")*10);
+        model.addAttribute("javaBasic1ScorePercent", quizService.getUserQuizScore(Constants.JAVA_BASIC1_SCORE_PATH) * 10);
         return "javaQuiz";
     }
 
     @GetMapping("/javaBasic1")
     public String JavaBasic1(Model model) throws IOException {
+
         model.addAttribute("continueQuiz", "Następny");
         model.addAttribute("howMuchQuestion", "Pytanie 1 / 10");
-        quizService.loadQuestion("src/main/resources/txt/java/javaBasic1/javaBasic1Questions.txt", 1, model);
+
+        quizService.loadQuestion(Constants.JAVA_BASIC1_QUESTIONS_PATH, 1, model);
         return "javaBasic1";
     }
 
@@ -53,21 +56,21 @@ public class QuizController {
 
         userAnswer.add(answer);
 
-        if(userAnswer.size() < 10){
+        if (userAnswer.size() < 10) {
 
-            model.addAttribute("howMuchQuestion", "Pytanie " + (userAnswer.size()+1) + " / 10");
+            model.addAttribute("howMuchQuestion", "Pytanie " + (userAnswer.size() + 1) + " / 10");
 
-            if(userAnswer.size() == 9) model.addAttribute("endOfQuiz", "");
+            if (userAnswer.size() == 9) model.addAttribute("endOfQuiz", "");
             else model.addAttribute("continueQuiz", "");
 
-            quizService.loadQuestion("src/main/resources/txt/java/javaBasic1/javaBasic1Questions.txt", (userAnswer.size()+1), model);
+            quizService.loadQuestion(Constants.JAVA_BASIC1_QUESTIONS_PATH, (userAnswer.size() + 1), model);
             return "/JavaBasic1";
         } else {
 
-            int score = quizService.checkUserAnswers(userAnswer, "src/main/resources/txt/java/javaBasic1/javaBasic1AnswersKey.txt");
-            boolean isBetter = quizService.isBetterScore(score, "src/main/resources/txt/java/javaBasic1/javaBasic1UserScore.txt");
+            int score = quizService.checkUserAnswers(userAnswer, Constants.JAVA_BASIC1_ANSWER_KEY_PATH);
+            boolean isBetter = quizService.isBetterScore(score, Constants.JAVA_BASIC1_USERS_SCORE_PATH);
 
-            if(isBetter){
+            if (isBetter) {
                 model.addAttribute("betterScore", "Udało Ci się osiągnąć nowy rekord! Zdobyłeś " + score + "/10 punktów!");
             } else {
                 model.addAttribute("worseScore", "Nie udało Ci się pobić Twojego rekordu, zdobyłeś " + score + "/10 punktów!");
@@ -79,12 +82,12 @@ public class QuizController {
     }
 
     @GetMapping("/springQuiz")
-    public String springQuiz(){
+    public String springQuiz() {
         return "springQuiz";
     }
 
     @GetMapping("/englishQuiz")
-    public String englishQuiz(){
+    public String englishQuiz() {
         return "englishQuiz";
     }
 }

@@ -1,5 +1,6 @@
 package pl.lukaspar.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@Slf4j
 public class QuizServiceImpl implements QuizService {
 
     private final UserService userService;
@@ -32,10 +34,12 @@ public class QuizServiceImpl implements QuizService {
         List<String> dataFromFile = Files.readAllLines(Paths.get(quizScoreFilePath));
         for (String line : dataFromFile) {
             if (line.split("\\s+")[0].equalsIgnoreCase(userName)) {
+                log.info("User exists in file, returning user score.");
                 return Integer.parseInt(line.split("\\s+")[1]); // user jest w pliku, zwracam jego score
             }
         }
 
+        log.info("Adding user to file with score.");
         // usera nie ma w pliku, wiec go dodaje, i zwracany jest score 0.
         return appendUserToFile(quizScoreFilePath, userName);
     }
@@ -50,6 +54,8 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public void loadQuestion(String questionsFilePath, int numberOfQuestion, Model model) throws IOException {
+
+        log.info("Loading question number {}", numberOfQuestion);
 
         int positionOfQuestionInFile = (numberOfQuestion - 1) * 5; // input 1, 2, 3... value: 0, 5, 10...
 
@@ -66,6 +72,7 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public int checkUserAnswers(List<String> userAnswers, String quizAnswersPath) throws IOException {
 
+        log.info("Checking user answers...");
         List<String> correctAnswers = Files.readAllLines(Paths.get(quizAnswersPath));
         int score = 0;
 
@@ -81,18 +88,22 @@ public class QuizServiceImpl implements QuizService {
     public boolean isBetterScore(int newScore, String userScoreFilePath) throws IOException {
 
         User currentUser = userService.getCurrentUser();
-        int currentUserScore = 0;
+        int oldUserScore = 0;
 
         List<String> dataFromFile = Files.readAllLines(Paths.get(userScoreFilePath));
         for (String line : dataFromFile) {
             if (line.split("\\s+")[0].equalsIgnoreCase(currentUser.getUsername())) {
-                currentUserScore = Integer.parseInt(line.split("\\s+")[1]);
+                oldUserScore = Integer.parseInt(line.split("\\s+")[1]);
             }
         }
 
-        if (newScore > currentUserScore) {
+        log.info("User old score: {} , User new score: {}" , oldUserScore, newScore);
 
-            currentUser.addScore(newScore - currentUserScore);
+        if (newScore > oldUserScore) {
+
+            log.info("User obtained better score.");
+
+            currentUser.addScore(newScore - oldUserScore);
 
             for (int i = 0; i < dataFromFile.size(); ++i) {
                 if (dataFromFile.get(i).split("\\s+")[0].equalsIgnoreCase(currentUser.getUsername())) {
@@ -110,7 +121,10 @@ public class QuizServiceImpl implements QuizService {
             }
 
             return true;
-        } else return false;
+        } else {
+            log.info("Old score was better.");
+            return false;
+        }
     }
 }
 
