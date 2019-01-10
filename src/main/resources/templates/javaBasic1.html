@@ -35,6 +35,15 @@
 
         </div>
 
+        <div class="alert alert-info" role="alert" th:if="${sameScore}" style="text-align: center">
+
+            <h4 class="alert-heading">Taki sam wynik!</h4>
+            <p th:text="${sameScore}"></p>
+            <hr>
+            <a href="/" class="alert-link">Powrót na stronę główną.</a>
+
+        </div>
+
 
         <div class="col-md-8 col-md-offset-2">
 

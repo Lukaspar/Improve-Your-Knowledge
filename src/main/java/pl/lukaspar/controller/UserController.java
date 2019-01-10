@@ -51,7 +51,6 @@ public class UserController {
         } else {
             userService.save(newUser);
             model.addAttribute("successRegistration", "*Rejestracja przebiegła pomyślnie. Zaloguj się.");
-
             return "register";
         }
     }
@@ -71,7 +70,7 @@ public class UserController {
 
         model.addAttribute("username", currentUser.getUsername());
         model.addAttribute("dateOfRegister", currentUser.getDateOfRegistration());
-        model.addAttribute("score", currentUser.getScore());
+        model.addAttribute("allScore", currentUser.getAllScore());
         model.addAttribute("userPosition", userService.getUserPosition(currentUser));
 
         return "userProfile";
@@ -85,6 +84,7 @@ public class UserController {
         if (isDeletedUser) {
             model.addAttribute("successDelete", "*Pomyślnie usunięto konto użytkownika. Kliknij aby przejść na stronę główną.");
             SecurityContextHolder.clearContext(); // Po usunięciu użytkownika czyszczę sesje.
+
             return "userProfile";
         } else {
             model.addAttribute("wrongPassword", "*Nie udało się usunąć konta. Hasło nieprawidłowe.");
@@ -108,7 +108,7 @@ public class UserController {
             Sortuję użytkowników według liczby punktów oraz ucinam tylko do
             pierwszych 10.
          */
-        listOfUsers.sort((o1, o2) -> o2.getScore().compareTo(o1.getScore()));
+        listOfUsers.sort((o1, o2) -> o2.getAllScore().compareTo(o1.getAllScore()));
 
         if (listOfUsers.size() > 10) {
             listOfUsers = listOfUsers.subList(0, 10);

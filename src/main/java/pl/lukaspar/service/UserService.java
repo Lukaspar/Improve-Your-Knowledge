@@ -17,4 +17,6 @@ public interface UserService {
     int getUserPosition(User user);
 
     boolean deleteByUsername(String password);
+
+    void updateUserAllScore(String username, int newAllScore);
 }

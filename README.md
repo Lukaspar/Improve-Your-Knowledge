@@ -78,7 +78,7 @@ GRANT ALL PRIVILEGES ON ImproveYourKnowledge.* TO 'lukaspar'@'localhost';
 
 ALTER USER 'lukaspar'@'localhost' IDENTIFIED WITH mysql_native_password BY '665650';
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -88,13 +88,16 @@ CREATE TABLE `user` (
   PRIMARY KEY (`user_id`)
 );
 
-CREATE TABLE `role` (
+CREATE TABLE IF NOT EXISTS `role` (
   `role_id` int(11) NOT NULL AUTO_INCREMENT,
   `role` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`role_id`)
 );
 
-CREATE TABLE `user_role` (
+INSERT INTO role VALUES (1,'ADMIN');
+INSERT INTO role VALUES (2,'USER');
+
+CREATE TABLE IF NOT EXISTS `user_role` (
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`user_id`,`role_id`),
@@ -103,8 +106,95 @@ CREATE TABLE `user_role` (
   CONSTRAINT `user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
 );
 
-INSERT INTO role VALUES (1,'ADMIN');
-INSERT INTO role VALUES (2,'USER');
+CREATE TABLE IF NOT EXISTS quiz (
+    `quiz_id` INT(11) NOT NULL AUTO_INCREMENT,
+    `quiz_name` VARCHAR(255) NOT NULL,
+    `question` VARCHAR(255) NOT NULL,
+    `optionA` VARCHAR(255) NOT NULL,
+    `optionB` VARCHAR(255) NOT NULL,
+    `optionC` VARCHAR(255) NOT NULL,
+    `optionD` VARCHAR(255) NOT NULL,
+    `correct_answer` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`quiz_id`)
+);
+
+CREATE TABLE IF NOT EXISTS score (
+    `score_id` INT(11) NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(255) NOT NULL,
+    `quiz_name` VARCHAR(255) NOT NULL,
+    `user_score` INT(11) NOT NULL,
+    PRIMARY KEY (`score_id`)
+);
+
+INSERT INTO quiz VALUES (1, "JavaBasic1", "Jaka jest prawidłowa składnia głównej metody main?",
+"public static void main(String[] args)",
+"public void main()",
+"public void main(String[] args)",
+"public String main(String[] args)",
+"A");
+
+INSERT INTO quiz VALUES (2, "JavaBasic1", "Czy klasa może dziedziczyć po wielu klasach?",
+"Tak",
+"Java nie pozwala na dziedziczenie innych klas",
+"Klasa może dziedziczyć po wielu klasach ale implementować tylko jeden interfejs",
+"Nie",
+"D");
+
+INSERT INTO quiz VALUES (3, "JavaBasic1", "Czy klasa może implementować kilka interfejsów?",
+"Tylko wtedy jak interfejsy roszerzają jeden wspólny interfejs",
+"Tak",
+"Tak, ale nie więcej niż 3",
+"Nie, klasa może implementować tylko jeden interfejs.",
+"B");
+
+INSERT INTO quiz VALUES (4, "JavaBasic1", "Jaką zmienną nazywamy field(pole)?",
+"Zdefiniowaną w dowolnym bloku kodu",
+"Zdefiniowaną w klasie",
+"Posiadającą metodę getNazwa i setNazwa",
+"Zmienna statyczną",
+"B");
+
+INSERT INTO quiz VALUES (5, "JavaBasic1", "Programy napisane w javie działają na ... ?",
+"Windows",
+"Mac",
+"Unix / Linux",
+"Wszystkie z powyższych",
+"D");
+
+INSERT INTO quiz VALUES (6, "JavaBasic1", "Jakiej metody nie zawiera klasa Object?",
+"toString",
+"toHashcode",
+"equals",
+"wait",
+"B");
+
+INSERT INTO quiz VALUES (7,"JavaBasic1",  "Wybierz prawidłowy typ danych dla liczby : 5.5",
+"int",
+"dobule",
+"char",
+"String",
+"B");
+
+INSERT INTO quiz VALUES (8, "JavaBasic1", "Co zawiera stos?",
+"Zawiera instancje obiektów i stos wywołań",
+"Zawiera instancje obiektów",
+"Zawiera zmienne lokalne i stos wywołań",
+"Zawiera isntancje obiektów i zmienne lokalne",
+"C");
+
+INSERT INTO quiz VALUES (9, "JavaBasic1","Co to jest konstruktor domyślny?",
+"Konstruktor zdefiniowany ze słowem kluczowym default",
+"Jest tworzony jeśli nie zdefiniowano jawnie konstruktora w klasie",
+"Jest tworzony tylko wtedy kiedy zostanie jawnie zdefiniowany w kodzie",
+"Jest to konstruktor który posiada tylko jeden argument",
+"B");
+
+INSERT INTO quiz VALUES (10,"JavaBasic1", "Jak działa słowo kluczowe continue?",
+"Przerywa wykonywanie pętli i kontynuuje wykonywanie dalszego kodu",
+"Wykonanie wraca do metody nadrzędnej",
+"Automatycznie przechodzi do kolejnej iteracji w pętli for",
+"Iteruje pętle raz jeszcze od początku",
+"C");
 ~~~
 </details>
 

@@ -36,14 +36,14 @@ public class User {
     private LocalDate dateOfRegistration;
 
     @Column(name = "score")
-    private Integer score;
+    private Integer allScore;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     public void addScore(int scoreToAdd) {
-        this.score += scoreToAdd;
+        this.allScore += scoreToAdd;
     }
 
 }

@@ -43,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/login", "/register", "/contact").permitAll()
-                .antMatchers("/registeredUser", "/learning", "/leaderBoard").hasAuthority("USER")
+                .antMatchers("/learning/**", "/registeredUser", "/leaderBoard").hasAuthority("USER")
                 .anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true")
@@ -53,7 +53,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/");
-
     }
 
     @Override
@@ -63,21 +62,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**", "/static/**", "/css/**");
     }
 
-
     public String getUsersQuery() {
         return usersQuery;
-    }
-
-    public void setUsersQuery(String usersQuery) {
-        this.usersQuery = usersQuery;
     }
 
     public String getRolesQuery() {
         return rolesQuery;
     }
 
+    public void setUsersQuery(String usersQuery) {
+        this.usersQuery = usersQuery;
+    }
+
     public void setRolesQuery(String rolesQuery) {
         this.rolesQuery = rolesQuery;
     }
-
 }

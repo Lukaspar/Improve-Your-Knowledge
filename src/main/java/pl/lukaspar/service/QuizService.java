@@ -2,16 +2,22 @@ package pl.lukaspar.service;
 
 import org.springframework.ui.Model;
 
-import java.io.*;
-import java.util.List;
 
 public interface QuizService {
 
-    int getUserQuizScore(String quizScoreFilePath) throws IOException;
+    int getUserQuizScore(String quizScoreFilePath);
 
-    void loadQuestion(String questionsFilePath, int numberOfQuestion, Model model) throws IOException;
+    int checkUserAnswers();
 
-    int checkUserAnswers(List<String> userAnswers, String quizAnswersPath) throws IOException;
+    int isBetterScore(String quizName, int newScore);
 
-    boolean isBetterScore(int score, String userScoreFilePath) throws IOException;
+    void loadQuizByName(String quizName);
+
+    void loadQuestion(int numberOfQuestion, Model model);
+
+    void addUserAnswer(String answer);
+
+    int getNumberOfAnswers();
+
+    void clearQuizData();
 }

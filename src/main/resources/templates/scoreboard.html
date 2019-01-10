@@ -27,13 +27,13 @@
             <tr th:if="${iterator.index < 3} " class="success">
                 <td th:text="${iterator.index+1}"></td>
                 <td th:text="${userFromBase.username}"></td>
-                <td th:text="${userFromBase.score}"></td>
+                <td th:text="${userFromBase.allScore}"></td>
             </tr>
 
             <tr th:if="${iterator.index >= 3} ">
                 <td th:text="${iterator.index+1}"></td>
                 <td th:text="${userFromBase.username}"></td>
-                <td th:text="${userFromBase.score}"></td>
+                <td th:text="${userFromBase.allScore}"></td>
             </tr>
         </div>
         </tbody>

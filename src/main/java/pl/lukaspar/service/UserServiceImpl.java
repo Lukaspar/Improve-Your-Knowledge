@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.lukaspar.dao.ScoreRepository;
 import pl.lukaspar.model.Role;
 import pl.lukaspar.model.User;
 import pl.lukaspar.dao.RoleRepository;
@@ -22,12 +23,14 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final ScoreRepository scoreRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, ScoreRepository scoreRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.scoreRepository = scoreRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -55,7 +58,7 @@ public class UserServiceImpl implements UserService {
         user.setRoles(userRole);
 
         user.setActive(1);
-        user.setScore(0);
+        user.setAllScore(0);
         user.setDateOfRegistration(LocalDate.now());
 
         userRepository.save(user);
@@ -75,7 +78,7 @@ public class UserServiceImpl implements UserService {
         log.info("Finding user position in rank.");
         List<User> listOfUsers = findAll();
 
-        listOfUsers.sort(((o1, o2) -> o2.getScore().compareTo(o1.getScore())));
+        listOfUsers.sort(((o1, o2) -> o2.getAllScore().compareTo(o1.getAllScore())));
 
         return listOfUsers.indexOf(user) + 1;
     }
@@ -87,6 +90,7 @@ public class UserServiceImpl implements UserService {
 
         if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
             userRepository.deleteByUsername(user.getUsername());
+            scoreRepository.deleteByUsername(user.getUsername());
             log.info("User ( {} ) deleted correctly.", user.getUsername());
             return true;
         } else {
@@ -94,6 +98,11 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
+    }
+
+    @Override
+    public void updateUserAllScore(String username, int newAllScore){
+        userRepository.updateUserAllScore(newAllScore, username);
     }
 
 }

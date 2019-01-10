@@ -13,7 +13,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
 
     @Modifying
-    @Transactional
     @Query(value = "delete from User u where u.username = ?1")
     void deleteByUsername(String username);
+
+    @Modifying
+    @Query(value = "update User u SET u.allScore = ?1 where u.username = ?2")
+    void updateUserAllScore(Integer score, String username);
 }
